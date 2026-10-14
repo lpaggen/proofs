@@ -14,7 +14,7 @@ Definition match_ab (xs : State) : bool :=
     ).
 
 
-Lemma match_ab :
+Lemma match_ab_general :
     forall (rest : State),
     match_ab ("a"%char :: "b"%char :: rest) = is_empty rest.
 Proof.
