@@ -11,3 +11,29 @@ Definition update
         if String.eqb x y
         then Some b
         else E y.
+
+Definition join_env
+    (e1 e2 : env)
+    : env :=
+    fun x =>
+        match e1 x, e2 x with
+        
+        | Some b1, Some b2 =>
+            Some (join_binding b1 b2)
+        
+        | Some b1, None => 
+            Some {|
+                bind_status := MaybeUnbound;
+                bind_value := bind_value b1
+            |}
+        
+        | None, Some b2 =>
+            Some {|
+                bind_status := MaybeUnbound;
+                bind_value := bind_value b2
+            |}
+        
+        | None, None =>
+            None
+        
+        end.
